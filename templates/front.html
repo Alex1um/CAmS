@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {%  load static %}
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/front-style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes.min.css' %}">
+</head>
+<body>
+    <div class="panel search-panel">
+        <form name="Search" class="form-horizontal" id="search-form">
+            <div class="search-box">
+                <a class="search-control"><</a>
+                    <input class="glyphicon-search form-control" type="text" placeholder="Search" aria-label="Search" id="search-bar">
+                <a class="search-control">></a>
+            </div>
+            <div class="search-properties center-block">
+            </div>
+        </form>
+    </div>
+    <div class="search-box-shadow"></div>
+    <div class="layout">
+        <div class="left-trigger-group">
+            <input id="left-trigger-check" type="checkbox">
+            <label class="btn left" id="left-trigger-bt" for="left-trigger-check"></label>
+            <div class="panel panel-collapse left left-panel">
+                {% if request.user.is_authenticated %}
+                    <h5>Hi {{ request.user }}</h5>
+                    <a href="../logout?next={{ request.get_full_path }}">log out</a>
+                    <hr>
+                    <h5>Your Projects <span class="badge">{{ UserProjects|length }}</span></h5>
+                    <ul id="user-projects" class="list-group">
+                        {% for project in UserProjects %}
+                            <li class="list-group-item">
+                                <a class="navbar-link" href="{{ project.link }}">{{ project.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="center-block btn-group-vertical">
+                        <a href="/" class="btn btn-default center">To Start Page</a>
+                        <a href="/" class="btn btn-default center">Sign in</a>
+                        <a href="/" class="btn btn-default center">Sign up</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="center-block content-block">
+                <input type="radio" name="main-tab-btn" id="tab-Home" value="" class="main-tabs" checked>
+                <label for="tab-Home" class="nav navbar-link">Home</label>
+                <input type="radio" name="main-tab-btn" id="tab-dep-projects"
+                       value="" class="main-tabs">
+                <label for="tab-dep-projects" class="nav navbar-link">Dependent<br>Projects</label>
+                <input type="radio" name="main-tab-btn" id="tab-Document" value="" class="main-tabs">
+                <label for="tab-Document" class="nav navbar-link">Document</label>
+                <input type="radio" name="main-tab-btn" id="tab-Source" value="" class="main-tabs">
+                <label for="tab-Source" class="nav navbar-link">Source</label>
+                <input type="radio" name="main-tab-btn" id="tab-Other" value="" class="main-tabs">
+                <label for="tab-Other" class="nav navbar-link">Other</label>
+            <div class="tab-content">
+                <div class="tab-pane" id="Home">
+                    <h1>{{ ProjectName }}</h1>
+                    <hr>
+                    <p>{{ Home|safe }}</p>
+                </div>
+                <div class="tab-pane" id="DependentProjects">
+                    <ul id="codependents" class="list-group">
+                    {% for proj in codependents %}
+                        <li class="item list-group-item">
+                            <span class="badge">{{ proj.version }}</span>
+                            <a class="navbar-link" href="{{ proj.link }}">{{ proj.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane" id="Source">
+                    # Source files
+                    {% block Source %}
+
+                    {% endblock %}
+                </div>
+                <div class="tab-pane" id="Document">
+                    # document
+                    {% block Documentation %}
+
+                    {% endblock %}
+                </div>
+                <div class="tab-pane" id="Other">
+                    # other
+                    {% block Other %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div class="right-trigger-group">
+            <input id="right-trigger-check" type="checkbox">
+            <label class="btn right" id="right-trigger-bt" for="right-trigger-check"></label>
+            <div class="panel panel-collapse right right-panel">
+            {# relation.link; relation.name #}
+                <h5>Related web services <span class="badge">{{ relations|length }}</span></h5>
+                <ul id="web-services" class="list-group">
+                    {% for relation in relations %}
+                        <li class="list-group-item">
+                            <span class="badge alert-success">Online</span>
+                            <a class="navbar-link" target="_blank" href="{{ relation.link }}">{{ relation.name }}</a>
+                            <!-- TODO: need js -->
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <h5>Dependencies <span class="badge">{{ dependencies|length }}</span></h5>
+                <ul id="dependencies" class="list-group">
+                    {% for dependency in dependencies %}
+                        <li class="item list-group-item">
+                            <span class="badge alert-{{ dependency.alert }}">{{ dependency.status }}</span>
+                            <a class="navbar-link" href="{{ dependency.link }}">{{ dependency.name }}</a>
+                            {# dependency #}
+                        </li>
+                    {% endfor %}
+               </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

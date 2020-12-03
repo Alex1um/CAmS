@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'FrontSite'
 ]
 
 MIDDLEWARE = [
@@ -73,11 +74,16 @@ WSGI_APPLICATION = 'CAmS.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# TODO: Wrong password
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "postgres",
+        'USER': "postgres",
+        'PASSWORD': "Admin",
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -119,3 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    "static"
+]

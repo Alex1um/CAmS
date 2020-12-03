@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from FrontSite import views as main_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('<int:id>/', main_site.FrontPage, name="FrontPage"),
+    path('', main_site.StartPage, name="StartPage"),
+    re_path(r"logout(\?next=(?P<next>\w+))?$", main_site.Logout, name="logout")
 ]
