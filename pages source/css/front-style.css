@@ -3,8 +3,22 @@ body {
     color: var(--text-color);
 }
 
+li {
+    background-color: var(--body-background) !important;
+}
+
+li>a {
+    background-color: var(--body-background) !important;
+}
+
 hr {
     border-color: var(--border-color)
+}
+
+a[class~=btn] {
+    background-color: var(--body-background);
+    border-color: var(--border-color);
+    color: var(--text-color);
 }
 
 .search-box {
@@ -14,7 +28,7 @@ hr {
     width: 100%;
     justify-content: center;
     padding-right: 20px;
-    margin: 10px;
+    margin: 11px;
     height: inherit;
 }
 
@@ -70,7 +84,7 @@ hr {
 
 .left-panel, .right-panel {
     width: 20%;
-    padding: 50px 10px 10px;
+    padding: 60px 10px 10px;
 }
 
 #left-trigger-check:checked + label, #right-trigger-check:checked + label {
@@ -162,11 +176,8 @@ hr {
 
 }
 .main-tabs:checked+label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding-bottom: 2px;
-    color: #555555;
+    color: var(--text-color);
     cursor: default;
     background-color: var(--tab-active-back);
     border: solid var(--border-color);
@@ -176,7 +187,6 @@ hr {
     border-radius: 4px 4px 0 0;
     position: relative;
     /*padding: 10px 15px;*/
-    text-align: center;
     text-decoration: none;
 }
 .main-tabs {
@@ -185,22 +195,24 @@ hr {
     visibility: hidden;
 }
 .main-tabs+label {
+    position: relative;
     display: flex;
+    border-color: var(--border-color);
+    border-style: solid;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin-right: 4px;
-    line-height: 1.428571429;
-    border-radius: 0 0 0 0;
-    border-bottom: 2px solid var(--border-color);
-    border-top: 2px solid transparent;
-    position: relative;
+    border-radius: 0;
+    border-width: 2px 0 2px 0;
+    border-top-color: transparent;
     color: var(--tabs-label-color);
-    text-decoration: none;
     cursor: pointer;
+    text-decoration: none;
     background: transparent;
     box-sizing: border-box;
     width: 100%;
+    line-height: 1.428571429;
 }
 
 .main-tabs:checked+label+input+label{
