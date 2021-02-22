@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="global-menu-variables new-light-theme">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/new/bars.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/new/vars.min.css' %}">
+    {#    <link rel="stylesheet" type="text/css" href="../static/css/bars.min.css">#}
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<div class="global-fixed">
+    <nav class="global-fixed-menu">
+        {% block global_left_space %}
+            <aside></aside>
+        {% endblock %}
+        <span class="global-menu-themes">
+            {% if page_type == "themes" %}
+            <p><strong>Themes</strong></p>
+            {% elif page_type == "theme" %}
+                <p><a href="/t/">Themes</a><b> / </b><strong>{{ theme.name }}</strong></p>
+            {% elif theme %}
+                <p><a href="/t/">Themes</a><b> / </b><a href="/t/{{ theme.id }}">{{ theme.name }}</a></p>
+            {% else %}
+            <a href="/t/">Themes</a>
+            {% endif %}
+            </span>
+        <span></span>
+        <span class="global-menu-projects">
+                {% if page_type == "project" %}
+                    <p>..<b>/</b>{{ project.name }}<b>/</b>..</p>
+                {% elif current_project %}
+                    <p>..<b>/</b><a>{{ project.name }}</a><b>/</b>..</p>
+                {% else %}
+                    <a>Projects</a>
+                {% endif %}
+            </span>
+        <span></span>
+        <span class="global-menu-user">
+                {% if page_type == "user" %}
+                    <p>{{ current_user }}</p>
+                {% elif current_user %}
+                    <p>..<b>/</b><a>{{ current_user }}</a><b>/</b>..</p>
+                {% elif page_type == "login" %}
+                    <p>Log in or <a>Sign up</a></p>
+                {% elif page_type == "register" %}
+                    <p><a>Log in</a> or Sign up</p>
+                {% else %}
+                    <p><a>Log in</a> or <a>Sign up</a></p>
+                {% endif %}
+            </span>
+        {% block global_right_space %}
+            <aside></aside>
+        {% endblock %}
+    </nav>
+    {% block global_left_menu %}
+        <div></div>
+    {% endblock %}
+    {% block global_middle_menu %}
+        <div></div>
+    {% endblock %}
+    {% block global_right_menu %}
+        <div></div>
+    {% endblock %}
+</div>
+<div class="global-grid">
+
+    <header class="global-header"></header>
+    <main class="global-main">
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="global-footer">
+
+    </footer>
+</div>
+</body>
+</html>

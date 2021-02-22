@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/start-style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themes.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/for-forms.min.css' %}">
+    <title>testing form</title>
+</head>
+<body>
+    {% block register_form %}
+    {% include "defaultform.html" %}
+    {% endblock %}
+</body>
+</html>

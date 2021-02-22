@@ -1,0 +1,16 @@
+<form class="main-form" method="post" action="{{ action }}"> {% csrf_token %}
+    {% load form_filters %}
+<label class="close badge" aria-label="Close" for="{{ close }}">&times;</label>
+    <h4 class="panel-heading">{{ title }}</h4>
+    {% for field in form %}
+        <div class="form-group">
+            {{ field }}
+            <ul class="list-group">
+                {% for error in field.errors|set %}
+                    <li class="list-group-item form-error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    <input type="submit" class="btn btn-primary">
+</form>

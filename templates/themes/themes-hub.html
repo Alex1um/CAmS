@@ -1,0 +1,45 @@
+{% extends "bars.html" %}
+{% block main %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/new/theme-hub.min.css' %}">
+    <div class="main-grid theme-variables">
+        <h1 class="main-themes-header">Themes</h1>
+        <section class="main-themes-featured">
+            <div class="main-themes-featured-container">
+{#                <div class="main-themes-featured-item">#}
+                {% for theme in themes_featured %}
+                    <div class="main-theme-item" id="main-theme-featured-{{ forloop.counter }}">
+                        <img src="{{ theme.background_small.url }}" alt="no image">
+                        <a href="/t/{{ theme.id }}">{{ theme.name }}</a>
+                    </div>
+{#                    {% if forloop.counter == 1 %}#}
+{#                        <a href="#main-theme-featured-{{ forloop.revcounter }}"></a>#}
+{#                    {% else %}#}
+{#                        <a href="#main-theme-featured-{{ forloop.counter0 }}"></a>#}
+{#                    {% endif %}#}
+{#                    {% if forloop.revcounter == 1 %}#}
+{#                        <a href="#main-theme-featured-1"></a>#}
+{#                    {% else %}#}
+{#                        <a href="#main-theme-featured-{{ forloop.counter|add:"-1" }}"></a>#}
+{#                    {% endif %}#}
+                {% endfor %}
+{#                </div>#}
+            </div>
+            {% for _ in themes_featured %}
+                <a href="#main-theme-featured-{{ forloop.counter }}">{{ forloop.counter }}</a>
+            {% endfor %}
+        </section>
+        <div class="main-themes-item-settings">
+
+        </div>
+        <div class="main-themes-item-container">
+            {% for theme in themes %}
+                <div class="main-theme-item">
+                    <img src="{{ theme.background_small.url }}" alt="no image">
+                    <a href="/t/{{ theme.id }}">{{ theme.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
