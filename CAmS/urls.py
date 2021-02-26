@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 from MainPage.views import StartPage
-from FrontSite.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +26,6 @@ urlpatterns = [
             StartPage,
             name="start_page_with_action"),
     path("t/", include("ThemesControl.urls")),
-    path("test/", test),
-    path("test1/", test1)
 ]
 
 

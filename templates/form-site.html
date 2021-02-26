@@ -1,0 +1,9 @@
+{% extends "bars.html" %}
+{% block main %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/new/forms.min.css' %}">
+    <div class="form-wrapper">
+    {% include "defaultform.html" %}
+    </div>
+{% endblock %}

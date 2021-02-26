@@ -1,0 +1,33 @@
+.project-file-container {
+    display: grid;
+    grid-gap: 7px;
+}
+
+.project-file-item-dir {
+    border-color: var(--dir-color) !important;
+}
+
+.project-file-container label, .project-file-container a {
+    padding: 5px;
+    width: 100%;
+    background: var(--background);
+    border: 5px solid var(--file-color);
+    margin: 0;
+}
+
+label.project-file-item-dir::before {
+    content: "📁";
+}
+
+.project-file-container input {
+    display: none;
+}
+
+.project-file-container input+div {
+    display: none;
+    margin-left: 3em;
+}
+
+.project-file-container input:checked+div {
+    display: grid;
+}

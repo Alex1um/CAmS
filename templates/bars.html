@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="global-menu-variables new-light-theme">
+<html lang="en" class="global-menu-variables">
 <head>
     {% load static %}
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/new/bars.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/new/vars.min.css' %}">
     {#    <link rel="stylesheet" type="text/css" href="../static/css/bars.min.css">#}
@@ -30,25 +34,25 @@
         <span></span>
         <span class="global-menu-projects">
                 {% if page_type == "project" %}
-                    <p>..<b>/</b>{{ project.name }}<b>/</b>..</p>
-                {% elif current_project %}
-                    <p>..<b>/</b><a>{{ project.name }}</a><b>/</b>..</p>
+                    <p><a href="/p/">Projects</a><b> / </b><strong>{{ project.name }}</strong></p>
+                {% elif project %}
+                    <p><a href="/p/">Projects</a><b> / </b><a href="/p/{{ project.id }}">{{ project.name }}</a></p>
                 {% else %}
-                    <a>Projects</a>
+                    <a href="/p/">Projects</a>
                 {% endif %}
             </span>
         <span></span>
         <span class="global-menu-user">
                 {% if page_type == "user" %}
-                    <p>{{ current_user }}</p>
-                {% elif current_user %}
-                    <p>..<b>/</b><a>{{ current_user }}</a><b>/</b>..</p>
+                    <p><strong>{{ current_user }}</strong></p>
+                {% elif request.user.id != None %}
+                    <p><a href="/u/logout">...</a><b> / </b><a href="/u/{{ request.user.id }}">{{ request.user.username }}</a></p>
                 {% elif page_type == "login" %}
-                    <p>Log in or <a>Sign up</a></p>
+                    <p><strong>Log in</strong> <b>or</b> <a href="/u/register">Sign up</a></p>
                 {% elif page_type == "register" %}
-                    <p><a>Log in</a> or Sign up</p>
+                    <p><a href="/u/login">Log in</a> or <strong>Sign up</strong></p>
                 {% else %}
-                    <p><a>Log in</a> or <a>Sign up</a></p>
+                    <p><a href="/u/login">Log in</a> or <a href="/u/register">Sign up</a></p>
                 {% endif %}
             </span>
         {% block global_right_space %}

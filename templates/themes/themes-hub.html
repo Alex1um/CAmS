@@ -7,7 +7,7 @@
         <h1 class="main-themes-header">Themes</h1>
         <section class="main-themes-featured">
             <div class="main-themes-featured-container">
-{#                <div class="main-themes-featured-item">#}
+                <div></div>
                 {% for theme in themes_featured %}
                     <div class="main-theme-item" id="main-theme-featured-{{ forloop.counter }}">
                         <img src="{{ theme.background_small.url }}" alt="no image">
@@ -24,11 +24,13 @@
 {#                        <a href="#main-theme-featured-{{ forloop.counter|add:"-1" }}"></a>#}
 {#                    {% endif %}#}
                 {% endfor %}
-{#                </div>#}
+                <div></div>
             </div>
+            <nav>
             {% for _ in themes_featured %}
-                <a href="#main-theme-featured-{{ forloop.counter }}">{{ forloop.counter }}</a>
+                <a href="#main-theme-featured-{{ forloop.counter }}"></a>
             {% endfor %}
+            </nav>
         </section>
         <div class="main-themes-item-settings">
 

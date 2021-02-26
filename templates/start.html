@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="dark-theme">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% extends "bars.html" %}
+{% block main %}
     {% load static %}
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/start-style.min.css' %}">
@@ -13,8 +10,7 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/for-forms.min.css' %}">
     <!--    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
-</head>
-<body>
+
 <div class="float-menu navbar-fixed-top"></div>
 <div class="search-block">
     <form class="search-control" method="post"> {% csrf_token %}
@@ -43,6 +39,4 @@
     {% include "defaultform.html" with form=register_form action=register_action title=register_title close="bt-register" %}
 </div>
 <!--</div>-->
-
-</body>
-</html>
+{% endblock %}

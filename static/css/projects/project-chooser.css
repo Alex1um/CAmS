@@ -1,0 +1,29 @@
+#global-middle-project-choose {
+    display: none;
+}
+
+#global-middle-project-choose:checked+div {
+    display: grid;
+    pointer-events: all;
+}
+
+.global-middle-project-chooser {
+    display: none;
+    background: rgba(7, 7, 7, 0.5);
+    margin-top: 10px;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.global-middle-project-chooser form {
+    display: grid;
+    height: 100%;
+    grid-gap: 10px;
+    width: 20em;
+}
+
+.project-chooser-close {
+    justify-self: end;
+    margin: 0;
+}

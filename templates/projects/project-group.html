@@ -1,0 +1,44 @@
+{% if info %}
+
+    <section class="project-item-container">
+        {% for proj in projects %}
+            <div class="project-item">
+        <span class="project-item-info">
+            <input type="checkbox" name="{{ proj.id }}">
+        </span>
+                <span class="project-item-main">
+            <a href="/p/{{ proj.id }}">
+                <h4>
+                    {{ proj.name }}
+                </h4>
+            </a>
+                    {% if proj.short_description %}
+                        <hr>
+                        <p>{{ proj.short_description }}</p>
+                    {% endif %}
+        </span>
+            </div>
+        {% endfor %}
+    </section>
+{% else %}
+<section class="project-item-container">
+    {% for proj, v in projects %}
+    <div class="project-item">
+        <span class="project-item-info">
+            <span class="badge">{{ v }}</span>
+        </span>
+        <span class="project-item-main">
+            <a href="/p/{{ proj.id }}">
+                <h4>
+                    {{ proj.name }}
+                </h4>
+            </a>
+            {% if proj.short_description %}
+                <hr>
+                <p>{{ proj.short_description }}</p>
+            {% endif %}
+        </span>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

@@ -35,11 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'FrontSite',
     'UserControl',
     'ProjectControl',
     'MainPage',
-    'ThemesControl'
+    'ThemesControl',
+    'FilesControl',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +69,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'form_filters': 'UserControl.templatetags.form_filters',
+                'markdown_to_html': 'ProjectControl.templatetags.markdown_to_html'
             }
         },
     },
@@ -114,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -132,5 +132,4 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     "static",
-    "themes-static"
 ]

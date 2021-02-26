@@ -1,6 +1,8 @@
 <form class="main-form" method="post" action="{{ action }}"> {% csrf_token %}
     {% load form_filters %}
-<label class="close badge" aria-label="Close" for="{{ close }}">&times;</label>
+    {% if close %}
+        <label class="close badge" aria-label="Close" for="{{ close }}">&times;</label>
+    {% endif %}
     <h4 class="panel-heading">{{ title }}</h4>
     {% for field in form %}
         <div class="form-group">

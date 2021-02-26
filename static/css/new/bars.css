@@ -23,6 +23,7 @@ body {
 }
 
 .global-fixed-menu {
+    box-sizing: content-box;
     pointer-events: all;
     grid-column: left-menu / right-menu;
     display: inline-grid;
@@ -78,6 +79,6 @@ body {
     margin: 20px;
 }
 
-strong {
+.global-fixed strong {
     color: var(--highlight)
 }

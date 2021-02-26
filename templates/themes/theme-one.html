@@ -2,11 +2,15 @@
 {% block main %}
     {% load static %}
     <link rel="stylesheet" type="text/css"
+          href="{% static 'css/projects/project-group.css' %}">
+    <link rel="stylesheet" type="text/css"
           href="{% static 'css/new/theme-one.min.css' %}">
-    <div class="main-grid">
+    <section class="main-grid">
         <header class="main-themes-header">
             <h1>{{ theme.name }}</h1>
+            {% if theme.description %}
             <p>{{ theme.description }}</p>
+            {% endif %}
         </header>
         {% if theme.content %}
         <div class="main-theme-content">
@@ -17,22 +21,23 @@
         {% endif %}
         <div class="main-themes-item-settings">
         </div>
-        <div class="main-themes-item-container">
-            {% for project in projects %}
-            <div class="main-theme-item">
-                <a href="/p/{{ project.id }}">
-                <h4>
-                    {{ project.Name }}
-                </h4>
-                </a>
-                {% if project.short_description %}
-                <hr>
-                <p>
-                    {{ project.short_description }}
-                </p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+        {% include "projects/project-group.html" %}
+{#        <div class="main-themes-item-container">#}
+{#            {% for project in projects %}#}
+{#            <div class="main-theme-item">#}
+{#                <a href="/p/{{ project.id }}">#}
+{#                <h4>#}
+{#                    {{ project.name }}#}
+{#                </h4>#}
+{#                </a>#}
+{#                {% if project.short_description %}#}
+{#                <hr>#}
+{#                <p>#}
+{#                    {{ project.short_description }}#}
+{#                </p>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+    </section>
 {% endblock %}

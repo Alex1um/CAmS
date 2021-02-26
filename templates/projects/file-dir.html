@@ -1,0 +1,13 @@
+<div class="project-file-container">
+    {% for f in dir %}
+        {% if f.type == "dir" %}
+            <label class="project-file-item-dir" for="project-dir-{{ f.name }}">{{ f.name }}</label>
+            <input type="checkbox" id="project-dir-{{ f.name }}">
+            {% with path|add:"/"|add:f.name as path %}
+            {% include "projects/file-dir.html" with dir=f.files path=path %}
+            {% endwith %}
+        {% else %}
+            <a href="{{ path }}/{{ f.name }}">{{ f.name }}</a>
+        {% endif %}
+    {% endfor %}
+</div>

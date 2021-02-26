@@ -1,0 +1,1 @@
+.form-wrapper{display:flex;justify-content:center;text-align:center}.main-form{width:32em;height:auto;margin-top:50px;background:var(--background);padding:7px;border:5px solid var(--border-color);border-radius:10px}.form-error{text-align:left;color:red;line-height:1.2em}
