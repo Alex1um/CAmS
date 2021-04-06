@@ -6,7 +6,6 @@ from ProjectControl.models import Project, FileDirectory, Dependence
 # Create your views here.
 def watch_file(request, dir):
     splitted = dir.split("/")
-    print(splitted)
     project = Project.objects.get(id=int(splitted[0]))
     version = splitted[1]
     files = project.files.get(version=version)

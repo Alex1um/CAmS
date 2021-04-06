@@ -10,6 +10,7 @@ from django.forms import Form
 def view_project(request, id: int):
     try:
         owner = False
+        available_to_add = None
         current: Project = Project.objects.get(id=id)
         user = request.user
         if current.allowed_users.count() > 0:
@@ -24,6 +25,8 @@ def view_project(request, id: int):
                 return HttpResponseForbidden("Project is private")
         elif user.is_authenticated and current.owners.get(id=user.id):
             owner = True
+        if user.is_authenticated:
+            available_to_add = user.owner_of_projects.all()
         return render(
             request,
             "projects/project.html",
@@ -35,7 +38,7 @@ def view_project(request, id: int):
                 "dir": current.files.last().files,
                 "path": f"/p/{current.id}/{current.version}",
                 "owner": owner,
-                "owner_projects": user.owner_of_projects.all(),
+                "owner_projects": available_to_add,
             }
         )
     except ObjectDoesNotExist as f:
@@ -58,7 +61,7 @@ def edit_project(request, id: int):
         if current.owners.get(id=request.user.id):
             return render(
                     request,
-                    "projects/project.html",
+                    "projects/project-edit.html",
                     {
                         "project": current,
                         "page_type": "project",
@@ -66,8 +69,6 @@ def edit_project(request, id: int):
                         "dependent": map(lambda d: (d.project, d.files.version), current.as_dependence.all()),
                         "dir": current.files.last().files,
                         "path": f"/p/{current.id}/{current.version}",
-                        "mode": "edit",
-                        "owner": True
                     }
                 )
         else:

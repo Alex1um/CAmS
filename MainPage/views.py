@@ -7,7 +7,7 @@ from UserControl.views import validate_login, validate_register
 # Create your views here.
 def StartPage(request, action=""):
     if request.user.is_authenticated:
-        return redirect(f"./1")
+        return redirect(f"./t")
     log_form = LoginForm()
     reg_form = RegisterForm()
     reg_check = ""

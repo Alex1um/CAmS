@@ -59,15 +59,18 @@
             <aside></aside>
         {% endblock %}
     </nav>
-    {% block global_left_menu %}
-        <div></div>
-    {% endblock %}
-    {% block global_middle_menu %}
-        <div></div>
-    {% endblock %}
-    {% block global_right_menu %}
-        <div></div>
-    {% endblock %}
+    <div class="global-left-panel">
+        {% block global_left_menu %}
+        {% endblock %}
+    </div>
+    <div class="global-middle">
+        {% block global_middle_menu %}
+        {% endblock %}
+    </div>
+    <div class="global-right-panel">
+        {% block global_right_menu %}
+        {% endblock %}
+    </div>
 </div>
 <div class="global-grid">
 

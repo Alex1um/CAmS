@@ -20,6 +20,7 @@ body {
     overflow: hidden;
     position: fixed;
     pointer-events: none;
+    z-index: 100;
 }
 
 .global-fixed-menu {

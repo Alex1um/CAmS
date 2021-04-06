@@ -5,9 +5,11 @@ header input {
 header textarea {
     height: calc(var(--font-size) * 5);
     width: 100%;
+    resize: none;
 }
 
 .main-content>span {
+    display: inline-block;
     width: 100%;
     height: auto;
     display: block;
@@ -19,5 +21,8 @@ header textarea {
 
 .main-content>textarea {
     width: 100%;
-    height: 50em;
+    height: 20em;
+    resize: vertical;
+    /*min-height: calc(var(--font-size) + 10px);*/
+    min-height: calc(1.33em + 5px);
 }
