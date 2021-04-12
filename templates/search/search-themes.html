@@ -1,0 +1,16 @@
+{% extends "search/search.html" %}
+{% block search-body %}
+    <nav block class="navbar">
+        <a class="btn btn-info" sort="{{ sort.name }}" href="{{ path|add:'&name' }}">Name</a>
+        <a class="btn btn-info" sort="{{ sort.proj_amount }}" href="{{ path|add:'&amount' }}">Project Count</a>
+        <a class="btn btn-primary" href="?query=">Reset</a>
+    </nav>
+    <section class="main-themes-item-container">
+        {% for theme in themes %}
+            <div class="main-theme-item">
+                <img src="{{ theme.background_small.url }}" alt="no image">
+                <a href="/t/{{ theme.id }}">{{ theme.name }}</a>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "bars.html" %}
+{% block header %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/search/search-main.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/projects/project-group.min.css' %}">
+{% endblock %}
+{% block main %}
+    <form method="get" class="search-bar">
+        <input class="glyphicon-search form-control search-input" type="search"
+               placeholder="Search" aria-label="Search"
+               id="search-bar" name="query" value="{{ query }}">
+        <input class="search-submit btn-default form-control" value="Go!"
+               type="submit">
+    </form>
+    {% block search-body %}
+
+    {% endblock %}
+{% endblock %}

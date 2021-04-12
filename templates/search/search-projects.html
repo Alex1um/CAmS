@@ -1,0 +1,9 @@
+{% extends "search/search.html" %}
+{% block search-body %}
+    <nav block class="navbar">
+        <a class="btn btn-info" sort="{{ sort.name }}" href="{{ path|add:'&name' }}">Name</a>
+        <a class="btn btn-info" sort="{{ sort.version }}" href="{{ path|add:'&version' }}">version</a>
+        <a class="btn btn-primary" href="?query=">Reset</a>
+    </nav>
+    {% include "projects/project-group.html" %}
+{% endblock %}
