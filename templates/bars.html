@@ -13,8 +13,14 @@
     {#    <link rel="stylesheet" type="text/css" href="../static/css/bars.min.css">#}
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    {% block header %}
+
+    {% endblock %}
 </head>
 <body>
+{% if global_form %}
+    <form method="{{ global_form.method }}" action="{{ global_form.action }}" id="global-form">
+{% endif %}
 <div class="global-fixed">
     <nav class="global-fixed-menu">
         {% block global_left_space %}
@@ -22,7 +28,7 @@
         {% endblock %}
         <span class="global-menu-themes">
             {% if page_type == "themes" %}
-            <p><strong>Themes</strong></p>
+                <p><strong>Themes</strong></p>
             {% elif page_type == "theme" %}
                 <p><a href="/t/">Themes</a><b> / </b><strong>{{ theme.name }}</strong></p>
             {% elif theme %}
@@ -33,7 +39,9 @@
             </span>
         <span></span>
         <span class="global-menu-projects">
-                {% if page_type == "project" %}
+                {% if page_type == "projects" %}
+                    <p><strong>Projects</strong></p>
+                {% elif page_type == "project" %}
                     <p><a href="/p/">Projects</a><b> / </b><strong>{{ project.name }}</strong></p>
                 {% elif project %}
                     <p><a href="/p/">Projects</a><b> / </b><a href="/p/{{ project.id }}">{{ project.name }}</a></p>
@@ -59,15 +67,15 @@
             <aside></aside>
         {% endblock %}
     </nav>
-    <div class="global-left-panel">
+    <div id="global-left-panel">
         {% block global_left_menu %}
         {% endblock %}
     </div>
-    <div class="global-middle">
+    <div id="global-middle">
         {% block global_middle_menu %}
         {% endblock %}
     </div>
-    <div class="global-right-panel">
+    <div id="global-right-panel">
         {% block global_right_menu %}
         {% endblock %}
     </div>
@@ -83,5 +91,8 @@
 
     </footer>
 </div>
+{% if global_form %}
+    </form>
+{% endif %}
 </body>
 </html>

@@ -59,7 +59,7 @@
     border-bottom-color: var(--spare);
 }
 
-#main-files > nav {
+section.main-tab-content > div > nav {
     border: var(--border-color) solid;
     border-width: 5px 0;
     padding: 5px 0;

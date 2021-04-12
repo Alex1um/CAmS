@@ -19,8 +19,14 @@
         {% else %}
         <div style="display: none"></div>
         {% endif %}
-        <div class="main-themes-item-settings">
-        </div>
+        <form method="get" class="search-bar" action="/s/project">
+            <input name="theme" value="{{ theme.id }}" style="display: none">
+        <input class="glyphicon-search form-control search-input" type="search"
+               placeholder="Search" aria-label="Search"
+               id="search-bar" name="query" value="{{ query }}">
+        <input class="search-submit btn-default form-control" value="Go!"
+               type="submit">
+        </form>
         {% include "projects/project-group.html" %}
 {#        <div class="main-themes-item-container">#}
 {#            {% for project in projects %}#}

@@ -22,10 +22,11 @@ urlpatterns = [
     path('u/', include('UserControl.urls')),  # Actions with users
     path('p/', include('ProjectControl.urls')),  # Actions with projects
     path('', StartPage, name="start_page"),
-    re_path('^action=(?P<action>\w+)$',
-            StartPage,
-            name="start_page_with_action"),
+    # re_path('^action=(?P<action>\w+)$',
+    #         StartPage,
+    #         name="start_page_with_action"),
     path("t/", include("ThemesControl.urls")),
+    path("s/", include("Search.urls")),
 ]
 
 

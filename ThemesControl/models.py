@@ -18,5 +18,6 @@ class Theme(models.Model):
     background = models.ImageField(upload_to=upload_back, blank=True, null=True)
     background_small = models.ImageField(upload_to=upload_small, default="static\\images\\no-image.png")
 
+
     def __str__(self):
         return f"{self.name}"

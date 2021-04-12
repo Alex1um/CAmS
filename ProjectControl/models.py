@@ -5,60 +5,62 @@ import json
 
 
 # Create your models here.
+import uuid
+
+
 class Project(models.Model):
     name = models.CharField(max_length=100)
+    creation_date = models.DateTimeField()
     creator = models.ForeignKey(
         User,
-        models.PROTECT, related_name="created_projects"
+        models.PROTECT,
+        related_name="created_projects",
     )
     owners = models.ManyToManyField(
         User,
-        related_name="owner_of_projects"
+        related_name="owner_of_projects",
     )
     allowed_users = models.ManyToManyField(
         User,
         related_name='allowed_projects',
         blank=True
     )
-    home_markdown = models.TextField(blank=True, default=None, null=True)
-    home_html = models.TextField(null=True, blank=True)
-    description = models.CharField(null=True, blank=True, max_length=200)
-    version = models.CharField(max_length=30, default="0.1.0")
-    short_description = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return f"{self.id} - {self.name} by {{{self.creator}}}"
 
-    def save(self, *args, **kwargs):
-        if self.home_markdown:
-            self.home_html = markdown(self.home_markdown)
-        files = [{
-            "type": "dir",
-            "name": self.name,
-            "files": [],
-        }]
-        super().save(*args, **kwargs)
-        create_files(self, files, self.version)
-        # os.mkdir(f"..\\projects\\{self.id}")
 
-
-class FileDirectory(models.Model):
+class Version(models.Model):
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name="files",
+        related_name="versions",
     )
-    files = models.JSONField(null=True, blank=True, default=None)
-    version = models.CharField(max_length=30)
+    files = models.JSONField(null=True, blank=True, default=dict)
+    name = models.CharField(max_length=30)
+    uuid = models.UUIDField(primary_key=False,
+                            editable=False,
+                            default=uuid.uuid4,
+                            unique=True)
+    creation_date = models.DateTimeField(auto_now=True)
+    home_markdown = models.TextField(blank=True, default=None, null=True)
+    home_html = models.TextField(null=True, blank=True)
+    description = models.CharField(null=True, blank=True, max_length=200)
+    short_description = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return f"{self.project}({self.version})"
+        return f"{self.project} - {self.name} - {self.uuid}"
 
-
-def create_files(proj: Project, files, version):
-    return FileDirectory.objects.create(project=proj,
-                                        files=files,
-                                        version=version)
+    def save(self, *args, **kwargs):
+        if self.home_markdown:
+            self.home_html = markdown(self.home_markdown)
+        if not self.files:
+            self.files = [{
+                "type": "dir",
+                "name": self.project.name,
+                "files": [],
+            }]
+        super(Version, self).save(*args, **kwargs)
 
 
 class Dependence(models.Model):
@@ -72,14 +74,21 @@ class Dependence(models.Model):
         on_delete=models.DO_NOTHING,
         related_name='as_dependence',
     )
-    files = models.ForeignKey(
-        FileDirectory,
-        on_delete=models.CASCADE,
-
+    project_dependency_version = models.ForeignKey(
+        Version,
+        on_delete=models.DO_NOTHING,
+        related_name='as_dependence'
+    )
+    project_versions = models.ManyToManyField(
+        Version,
+        "dependencies",
+        blank=True,
     )
 
+    files = models.JSONField(null=True, blank=True, default=dict)
+
     def __str__(self):
-        return f"{self.project}({self.files.version}) -> {self.project_dependency}"
+        return f"{self.project_dependency}({self.project_dependency_version.name}) -> {self.project}"
 
 
 class ProjectManager(models.Manager):

@@ -1,5 +1,5 @@
 {% extends "bars.html" %}
-{% block main %}
+{% block header %}
     {% load static %}
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/projects/project-group.min.css' %}">
@@ -13,12 +13,17 @@
           href="{% static 'css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/projects/project-edit.min.css' %}">
-    <form method="post" id="global-edit-form">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/projects/project-chooser.min.css' %}">
+{% endblock %}
+{% block main %}
+
+{#    <form method="post" id="global-edit-form">#}
     {% csrf_token %}
     <section class="main-grid">
         <nav id="nav-block">
-            <input type="submit" class="btn btn-primary" value="Save">
-            <a href="/p/{{ project.id }}" class="btn btn-info">Cancel</a>
+            <label class="btn btn-primary" for="dialog-version-chooser">Save</label>
+            <a href="/p/{{ project.id }}" class="btn btn-warning">Cancel</a>
             <a href="/p/delete/{{ project.id }}" class="btn btn-danger">Delete</a>
         </nav>
         <header>
@@ -26,15 +31,15 @@
             <h1><input id="project-name" name="name" maxlength="100" type="text" value="{{ project.name }}" required></h1>
             <hr>
             <label for="project-description">Description</label>
-            <p><textarea name="description" id="project-description">{{ project.description }}</textarea></p>
+            <p><textarea name="description" id="project-description">{{ version.description }}</textarea></p>
             <hr>
             <label for="project-short-description">Short description</label>
-            <p><textarea name="short_description" id="project-short-description">{{ project.short_description }}</textarea></p>
+            <p><textarea name="short_description" id="project-short-description">{{ version.short_description }}</textarea></p>
         </header>
         <section class="main-content">
             {% autoescape off %}
                 <label for="markdown-form">Markdown description</label>
-                <textarea name="home_markdown" id="markdown-form" aria-multiline="true">{{ project.home_markdown }}</textarea>
+                <textarea name="home_markdown" id="markdown-form" aria-multiline="true">{{ version.home_markdown }}</textarea>
             {% endautoescape %}
         </section>
         <section class="main-tab-block">
@@ -48,30 +53,70 @@
             <aside></aside>
             <section class="main-tab-content">
                 <div id="main-dependencies">
-                    <nav id="main-dependencies-navbar">
+                        <nav id="main-dependencies-navbar">
+                            <a class="btn btn-primary">Add</a>
+                        </nav>
                         {% include "projects/project-group.html" with projects=dependencies %}
-                    </nav>
-                </div>
-                <div id="main-dependent">
-                    <nav id="main-dependent-navbar">
+                    </div>
+                    <div id="main-dependent">
+                        <nav>
+                            <label class="btn btn-success" for="global-middle-project-choose">Add to..</label>
+                        </nav>
                         {% include "projects/project-group.html" with projects=dependent %}
-                    </nav>
-                </div>
-                <div id="main-files">
-                    <nav id="main-files-navbar">
-                        <a class="btn btn-info">Edit</a>
-                    </nav>
-                    {% include "projects/file-dir.html" with mode=mode %}
-                </div>
+                    </div>
+                    <div id="main-files">
+                        <nav id="main-files-navbar">
+                            <a class="btn btn-info">Edit</a>
+                        </nav>
+                        {% include "projects/file-dir.html" with mode=mode %}
+                    </div>
             </section>
         </section>
     </section>
-
-    </form>
 {% endblock %}
 {% block global_middle_menu %}
-    <input type="checkbox" id="global-middle-version-chooser">
-    <div>
+    <input type="checkbox" id="dialog-version-chooser">
+    <div class="dialog-background">
+        <div class="dialog-window">
+            <label for="dialog-version-chooser" class="close badge project-chooser-close" aria-label="Close">&times;</label>
+            {% csrf_token %}
+            <input type="radio" id="version-chooser-new" name="version-chooser-type" value="new" checked logic>
+            <label for="version-chooser-new">New version</label>
+            <section class="form-group">
+                <div class="form-group">
+                    <label>Version name</label>
+                    <input type="text" name="version-name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Version uuid</label>
+                    <input type="text" name="version-uuid" class="form-control" value="{{ uuid }}" readonly>
+                </div>
+            </section>
+            <input type="radio" name="version-chooser-type" id="version-chooser-old" value="old" logic>
+            <label for="version-chooser-old" class="select-radio">Select version</label>
+            <section>
+                <label for="versions-select">Select version:</label>
+                <select id="versions-select" name="version-uuid-select">
+                    {% regroup versions by name as new_versions %}
+                    {% for group in new_versions %}
+                        <optgroup label="{{ group.grouper }}">
+                            {% for version in group.list %}
+                                <option value="{{ version.uuid }}">
+                                    {{ version.uuid|slice:8 }}
+                                </option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
 
+                </select>
+            </section>
+            <nav>
+                <input type="submit" value="Safe" class="btn btn-primary">
+                <a href="/p/{{ project.id }}" class="btn btn-warning">Reset</a>
+                <label class="navbar-right btn btn-info" for="dialog-version-chooser">
+                    Close
+                </label>
+            </nav>
+        </div>
     </div>
 {% endblock %}

@@ -15,7 +15,7 @@ def theme_by_id(request, id):
                 "title": theme.name,
                 "page_type": "theme",
                 "theme": theme,
-                "projects": ((p, p.version) for p in projects),
+                "projects": ((p, p.versions.first().name) for p in projects),
             }
         )
     except ObjectDoesNotExist:

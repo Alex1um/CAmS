@@ -9,6 +9,12 @@
     grid-gap: 10px 15px;
 }
 
+.search-bar {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 10px;
+}
+
 .main-grid > * {
     background: var(--background);
     padding: 5px;

@@ -1,4 +1,4 @@
-<form class="main-form" method="post" action="{{ action }}"> {% csrf_token %}
+<form class="dialog-window main-form" method="post" action="{{ action }}"> {% csrf_token %}
     {% load form_filters %}
     {% if close %}
         <label class="close badge" aria-label="Close" for="{{ close }}">&times;</label>

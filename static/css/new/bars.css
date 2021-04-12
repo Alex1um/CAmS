@@ -5,7 +5,8 @@
 
 body {
     margin: 0;
-    color: var(--default)
+    color: var(--default) !important;
+
 }
 
 .global-fixed {
@@ -83,3 +84,83 @@ body {
 .global-fixed strong {
     color: var(--highlight)
 }
+
+/*region logistic*/
+
+
+#global-middle > input[type=checkbox], #global-middle > input+div {
+    display: none;
+}
+
+#global-middle > input:checked+*{
+    display: grid;
+    pointer-events: all;
+}
+
+.dialog-background {
+    display: grid;
+    background: rgba(7, 7, 7, 0.5);
+    margin-top: 10px;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.dialog-window {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 10px;
+    min-width: 20em;
+    border: 5px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    background: var(--background);
+}
+
+.dialog-window > label[class~=close]{
+    justify-self: end;
+    margin: 0;
+}
+
+input[logic]+label+*, input[logic], input[logic]+:not(label){
+    /*transform: translateY(-100%);*/
+    /*transform-origin: top;*/
+    display: none;
+    transition: 1s;
+}
+
+input[logic]:checked+label+*, input[logic]:checked+:not(label) {
+    transform: translateY(0);
+    display: grid;
+    pointer-events: all;
+}
+
+input[logic][type=radio] + label {
+    border: 5px solid var(--additional);
+    border-radius: 10px;
+    padding: 15px;
+    display: grid;
+    grid-auto-flow: column;
+    align-content: center;
+    align-items: center;
+}
+
+input[logic][type=radio] + label:before {
+    content: "";
+    display: block;
+    border-style: solid;
+    height: 2em;
+    max-width: 2em;
+    border-radius: 2em;
+    border-width: 5px;
+}
+
+input[logic][type=radio]:checked + label {
+    border-color: var(--highlight);
+}
+
+input[logic][type=radio]:checked + label:before {
+    border-width: 0.65em;
+    border-color: var(--highlight);
+}
+/*endregion*/

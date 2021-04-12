@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from FilesControl import views as fileviews
+from Search.views import search_projects
 
 
 urlpatterns = [

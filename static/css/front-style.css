@@ -201,13 +201,6 @@ hr {
     line-height: 1.428571429;
 }
 
-.main-tabs:checked+label+input+label{
-}
-
-/*.main-tabs+label:first-of-type {*/
-/*    border-width: 2px 2px 0 2px;*/
-/*}*/
-
 #tab-Home:checked~div #Home,
 #tab-dep-projects:checked~div #DependentProjects,
 #tab-Document:checked~div #Document,

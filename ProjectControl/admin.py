@@ -4,4 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(Project)
 admin.site.register(Dependence)
-admin.site.register(FileDirectory)
+admin.site.register(Version)

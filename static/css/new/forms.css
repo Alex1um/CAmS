@@ -4,14 +4,8 @@
     text-align: center;
 }
 
-.main-form {
-    width: 32em;
-    height: auto;
-    margin-top: 50px;
-    background: var(--background);
-    padding: 7px;
-    border: 5px solid var(--border-color);
-    border-radius: 10px;
+.main-form > *,.list-group {
+    margin: 0 !important;
 }
 
 .form-error {

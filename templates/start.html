@@ -1,5 +1,5 @@
 {% extends "bars.html" %}
-{% block main %}
+{% block header %}
     {% load static %}
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/start-style.min.css' %}">
@@ -10,13 +10,13 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/for-forms.min.css' %}">
     <!--    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
-
-<div class="float-menu navbar-fixed-top"></div>
+{% endblock %}
+{% block main %}
 <div class="search-block">
-    <form class="search-control" method="post"> {% csrf_token %}
+    <form class="search-control" method="get" action="/s/project">
         <input class="glyphicon-search form-control search-input" type="search"
                placeholder="Search" aria-label="Search"
-               id="search-bar">
+               id="search-bar" name="query">
         <input class="search-submit btn-default form-control" value="Go!"
                type="submit">
     </form>
@@ -28,14 +28,15 @@
 </div>
 <div class="float-menu navbar-fixed-bottom">
 </div>
-
+{% endblock %}
+{% block global_middle_menu %}
 <!--<div>-->
-<input type="checkbox" id="bt-login" class="for-form" {{ login_checked }}>
-<div class="back-form">
+<input type="checkbox" id="bt-login" class="for-form" {{ login_checked }} logic>
+<div class="dialog-background">
     {% include "defaultform.html" with form=login_form action=login_action title=login_title close="bt-login" %}
 </div>
-<input type="checkbox" id="bt-register" class="for-form" {{ register_checked }}>
-<div class="back-form">
+<input type="checkbox" id="bt-register" class="for-form" {{ register_checked }} logic>
+<div class="dialog-background">
     {% include "defaultform.html" with form=register_form action=register_action title=register_title close="bt-register" %}
 </div>
 <!--</div>-->
